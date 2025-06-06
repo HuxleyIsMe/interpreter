@@ -1,4 +1,5 @@
 const fs = require('fs')
+const {TreeOfNumbers, splitTokens} = require('./tree')
 
 /**
  * This is a lil calculator, i want to return the sum of the result
@@ -25,6 +26,18 @@ const fs = require('fs')
 /**
  * Come back to brackets because they confuse me
  */
+
+
+const PRIORITY = {
+    OPENING_BRACKET:7,
+    CLOSING_BRACKET:7,
+    DIVISION: 5,
+    MULTIPLY: 4,
+    ADDITION: 3,
+    SUBTRACTION:2,
+    NUMBER: 1
+
+}
 
 const tokenizer = (program) => {
 
@@ -77,6 +90,13 @@ const tokenizer = (program) => {
             mergedTokens.push(finalTokens[i])
         }
     }
+
+        // check nothing was building?
+    if(building.length > 0) {
+        console.log('finished trailing')
+        mergedTokens.push({ value: building, type: 'NUMBER'})
+    }
+
     console.log({mergedTokens})
     return mergedTokens
 
@@ -84,9 +104,13 @@ const tokenizer = (program) => {
 
 try {
 
-    const data = fs.readFileSync('./calculator.x',  { encoding: 'utf8', flag: 'r' }).trim()
-    tokenizer(data)
-    console.log({data})
+    const data = fs.readFileSync(`${__dirname}/calculator.x`,  { encoding: 'utf8', flag: 'r' }).trim()
+    const {leftHalf, root, rightHalf } = splitTokens(tokenizer(data))
+
+    const OakyBoy = new TreeOfNumbers()
+    OakyBoy.addToTree( {leftHalf, root, rightHalf })
+    console.log('step 1')
+    OakyBoy.printOut()
 } catch (err) {
 
 }
