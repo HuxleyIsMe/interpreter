@@ -27,7 +27,7 @@ const elements = {
 
 
 const getContent = () => {
-    let data = fs.readFileSync('./mock.jsx', { encoding: 'utf-8'}).trim()
+    let data = fs.readFileSync(`${__dirname}/mock.jsx`, { encoding: 'utf-8'}).trim()
     const removedWhiteSpace = data.split('\n').map(line => line.trim()).join('')
     return removedWhiteSpace
 }
