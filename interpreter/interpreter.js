@@ -28,16 +28,6 @@ const {TreeOfNumbers, splitTokens} = require('./tree')
  */
 
 
-const PRIORITY = {
-    OPENING_BRACKET:7,
-    CLOSING_BRACKET:7,
-    DIVISION: 5,
-    MULTIPLY: 4,
-    ADDITION: 3,
-    SUBTRACTION:2,
-    NUMBER: 1
-
-}
 
 const tokenizer = (program) => {
 
@@ -99,18 +89,17 @@ const tokenizer = (program) => {
 
     console.log({mergedTokens})
     return mergedTokens
-
 }
 
 try {
 
     const data = fs.readFileSync(`${__dirname}/calculator.x`,  { encoding: 'utf8', flag: 'r' }).trim()
     const {leftHalf, root, rightHalf } = splitTokens(tokenizer(data))
-
     const OakyBoy = new TreeOfNumbers()
-    OakyBoy.addToTree( {leftHalf, root, rightHalf })
-    console.log('step 1')
+    console.log({leftHalf, root, rightHalf})
+
+    OakyBoy.addToTree( { leftHalf, root, rightHalf } )
     OakyBoy.printOut()
 } catch (err) {
-
+    console.error('looksy look ', err)
 }
