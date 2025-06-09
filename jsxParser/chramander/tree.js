@@ -17,14 +17,13 @@ const buildTree = (tokens, parent) => {
     let curr = tokens[i];
 
     if (curr.type == "OPEN_TAG") {
-      let newNode = { curr, children: [] };
+      let newNode = { ...curr, children: [] };
       // link to to last parent
       let lastParent = currParents[currParents.length - 1];
       lastParent.children.push(newNode);
       currParents.push(newNode);
-      console.log(currParents.length);
     } else if (curr.type == "TEXT") {
-      let newNode = { curr };
+      let newNode = { ...curr };
       let lastParent = currParents[currParents.length - 1];
       lastParent.children.push(newNode);
       // remove last parent go up a level
