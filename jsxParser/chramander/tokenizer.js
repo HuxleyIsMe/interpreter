@@ -1,4 +1,5 @@
 const fs = require("fs");
+const { buildTree } = require("./tree");
 
 /**
  * 
@@ -117,7 +118,7 @@ const tokeniser = (data) => {
 
   let finished = organized(splitByElements.flat());
 
-  console.log({ finished });
+  return finished;
 };
 
 try {
@@ -125,8 +126,11 @@ try {
     encoding: "utf-8",
   });
 
-  tokeniser(data);
-  console.log({ data });
+  let tokens = tokeniser(data);
+
+  let tree = { children: [] };
+
+  let res = buildTree(tokens, tree);
 } catch (err) {
   console.error("por quoi? ...", err);
 }
