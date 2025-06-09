@@ -1,0 +1,21 @@
+# On building a JSX parser 
+
+Ok in order to build a JSX parser we need to first come up with some rules, specify the scope of what we are looking
+at and be happy!
+
+## **Assumptions**
+
+- ONE PARENT ELEMENT (but lol how to enforce)
+
+## step 1: charmander
+
+Take raw JSX and convert it -> 
+
+i.e.. <div><h1>HelloWorld</h1></div>
+
+Ok thoughts 
+
+- if we can assume one parent then we can assume our root to be a div but this must be checked
+- Every block element
+- are we validating HTML? No that might be to complicated for now
+- ok so just takey take the elements and pop em up into a tree? ( yeah because then we can use a tree walker hehehehe)
